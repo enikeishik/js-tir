@@ -6,6 +6,6 @@ Simple tir in Your browser. Try to shot red rectangle.
 
 ## Usage
 
-Just open [index.html](https://github.com/enikeishik/js-tir/blob/master/index.html?sanitize=true) in browser.
+Just download index.html and tir.js in to one folder and open index.html in browser.
 
 [ico-license]: https://img.shields.io/badge/license-GPL-brightgreen.svg?style=flat-square
