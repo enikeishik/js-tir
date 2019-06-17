@@ -14,12 +14,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function getClientWidth()
     {
-        return document.compatMode=='CSS1Compat' && !window.opera?document.documentElement.clientWidth:document.body.clientWidth;
+        return document.compatMode==='CSS1Compat' && !window.opera?document.documentElement.clientWidth:document.body.clientWidth;
     }
 
     function getClientHeight()
     {
-        return document.compatMode=='CSS1Compat' && !window.opera?document.documentElement.clientHeight:document.body.clientHeight;
+        return document.compatMode==='CSS1Compat' && !window.opera?document.documentElement.clientHeight:document.body.clientHeight;
     }
     function getTitle()
     {
@@ -70,8 +70,8 @@ document.addEventListener('DOMContentLoaded', function () {
         point.style.backgroundColor = '#ff0000';
         point.style.width = (size * 4) + 'px';
         point.style.height = (size * 4) + 'px';
-        point.style.left = (parseInt(point.style.left) - size) + 'px';
-        point.style.top = (parseInt(point.style.top) - size) + 'px';
+        point.style.left = (parseInt(point.style.left, 10) - size) + 'px';
+        point.style.top = (parseInt(point.style.top, 10) - size) + 'px';
         timeout_id = setTimeout(Hide, catch_delay);
     }
     function Init()
