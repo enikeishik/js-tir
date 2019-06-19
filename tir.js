@@ -1,16 +1,16 @@
 document.addEventListener("DOMContentLoaded", function () {
     var size = 12;
     var attempts = 50;
-    var show_delay = 1200;
-    var min_hide_delay = 500;
-    var max_hide_delay = 2500;
-    var catch_delay = 500;
+    var showDelay = 1200;
+    var hideDelayMin = 500;
+    var hideDelayMax = 2500;
+    var catchDelay = 500;
 
-    var attempt_counter = 0;
-    var catch_counter = 0;
+    var attemptCounter = 0;
+    var catchCounter = 0;
 
     var point;
-    var timeout_id;
+    var timeoutId;
 
     function getClientWidth()
     {
@@ -23,8 +23,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     function getTitle()
     {
-        var p = attempt_counter ? Math.round(catch_counter / attempt_counter * 100) : 0;
-        return "Catch: " + catch_counter + ", total: " + attempt_counter + "/" + attempts + ", " + p + "%";
+        var p = attemptCounter ? Math.round(catchCounter / attemptCounter * 100) : 0;
+        return "Catch: " + catchCounter + ", total: " + attemptCounter + "/" + attempts + ", " + p + "%";
     }
     function Hide()
     {
@@ -32,39 +32,39 @@ document.addEventListener("DOMContentLoaded", function () {
         point.style.backgroundColor = "#cc0000";
         point.style.width = size + "px";
         point.style.height = size + "px";
-        if (attempt_counter >= attempts) {
+        if (attemptCounter >= attempts) {
             var s = getTitle();
             document.title = s;
             alert(s);
             return;
         }
-        var p_top = 0;
-        var p_left = 0;
+        var pTop = 0;
+        var pLeft = 0;
         do {
-            p_top = Math.round(Math.random() * 2000);
-        } while ((p_top + size) > getClientHeight());
+            pTop = Math.round(Math.random() * 2000);
+        } while ((pTop + size) > getClientHeight());
         do {
-            p_left = Math.round(Math.random() * 2000);
-        } while ((p_left + size) > getClientWidth());
-        point.style.left = p_left + "px";
-        point.style.top = p_top + "px";
-        var delay = max_hide_delay;
+            pLeft = Math.round(Math.random() * 2000);
+        } while ((pLeft + size) > getClientWidth());
+        point.style.left = pLeft + "px";
+        point.style.top = pTop + "px";
+        var delay = hideDelayMax;
         do {
-            delay = Math.round(Math.random() * max_hide_delay);
-        } while (delay > max_hide_delay || delay < min_hide_delay);
-        timeout_id = setTimeout(Show, delay);
+            delay = Math.round(Math.random() * hideDelayMax);
+        } while (delay > hideDelayMax || delay < hideDelayMin);
+        timeoutId = setTimeout(Show, delay);
         document.title = getTitle();
     }
     function Show()
     {
-        attempt_counter++;
+        attemptCounter++;
         point.style.display = "block";
-        timeout_id = setTimeout(Hide, show_delay);
+        timeoutId = setTimeout(Hide, showDelay);
     }
     function Catch()
     {
-        clearTimeout(timeout_id);
-        catch_counter++;
+        clearTimeout(timeoutId);
+        catchCounter++;
         document.title = getTitle();
         point.style.display = "block";
         point.style.backgroundColor = "#ff0000";
@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", function () {
         point.style.height = (size * 4) + "px";
         point.style.left = (parseInt(point.style.left, 10) - size) + "px";
         point.style.top = (parseInt(point.style.top, 10) - size) + "px";
-        timeout_id = setTimeout(Hide, catch_delay);
+        timeoutId = setTimeout(Hide, catchDelay);
     }
     function Init()
     {
