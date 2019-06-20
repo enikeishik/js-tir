@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
         var p = attemptCounter ? Math.round(catchCounter / attemptCounter * 100) : 0;
         return "Catch: " + catchCounter + ", total: " + attemptCounter + "/" + attempts + ", " + p + "%";
     }
-    function Hide()
+    function hideTarget()
     {
         point.style.display = "none";
         point.style.backgroundColor = "#cc0000";
@@ -52,16 +52,16 @@ document.addEventListener("DOMContentLoaded", function () {
         do {
             delay = Math.round(Math.random() * hideDelayMax);
         } while (delay > hideDelayMax || delay < hideDelayMin);
-        timeoutId = setTimeout(Show, delay);
+        timeoutId = setTimeout(showTarget, delay);
         document.title = getTitle();
     }
-    function Show()
+    function showTarget()
     {
         attemptCounter++;
         point.style.display = "block";
-        timeoutId = setTimeout(Hide, showDelay);
+        timeoutId = setTimeout(hideTarget, showDelay);
     }
-    function Catch()
+    function catchTarget()
     {
         clearTimeout(timeoutId);
         catchCounter++;
@@ -72,15 +72,15 @@ document.addEventListener("DOMContentLoaded", function () {
         point.style.height = (size * 4) + "px";
         point.style.left = (parseInt(point.style.left, 10) - size) + "px";
         point.style.top = (parseInt(point.style.top, 10) - size) + "px";
-        timeoutId = setTimeout(Hide, catchDelay);
+        timeoutId = setTimeout(hideTarget, catchDelay);
     }
-    function Init()
+    function init()
     {
         alert("Lets begin");
         point = document.getElementById("point");
-        point.addEventListener("click", Catch);
-        Hide();
+        point.addEventListener("click", catchTarget);
+        hideTarget();
     }
     
-    Init();
+    init();
 });
