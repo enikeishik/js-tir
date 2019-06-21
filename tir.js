@@ -5,6 +5,8 @@ document.addEventListener("DOMContentLoaded", function () {
     var hideDelayMin = 500;
     var hideDelayMax = 2500;
     var catchDelay = 500;
+    var targetBgColor = "#cc0000";
+    var targetHighlightBgColor = "#ff0000";
 
     var attemptCounter = 0;
     var catchCounter = 0;
@@ -29,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function hideTarget()
     {
         point.style.display = "none";
-        point.style.backgroundColor = "#cc0000";
+        point.style.backgroundColor = targetBgColor;
         point.style.width = size + "px";
         point.style.height = size + "px";
         if (attemptCounter >= attempts) {
@@ -67,7 +69,7 @@ document.addEventListener("DOMContentLoaded", function () {
         catchCounter++;
         document.title = getTitle();
         point.style.display = "block";
-        point.style.backgroundColor = "#ff0000";
+        point.style.backgroundColor = targetHighlightBgColor;
         point.style.width = (size * 4) + "px";
         point.style.height = (size * 4) + "px";
         point.style.left = (parseInt(point.style.left, 10) - size) + "px";
