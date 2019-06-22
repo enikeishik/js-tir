@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-    var size = 12;
+    var targetSize = 12;
     var attempts = 50;
     var showDelay = 1200;
     var hideDelayMin = 500;
@@ -28,33 +28,48 @@ document.addEventListener("DOMContentLoaded", function () {
         var p = attemptCounter ? Math.round(catchCounter / attemptCounter * 100) : 0;
         return "Catch: " + catchCounter + ", total: " + attemptCounter + "/" + attempts + ", " + p + "%";
     }
+    function getTargetTop()
+    {
+        var pTop = 0;
+        do {
+            pTop = Math.round(Math.random() * 2000);
+        } while ((pTop + targetSize) > getClientHeight());
+        return pTop;
+    }
+    function getTargetLeft()
+    {
+        var pLeft = 0;
+        do {
+            pLeft = Math.round(Math.random() * 2000);
+        } while ((pLeft + targetSize) > getClientWidth());
+        return pLeft;
+    }
+    function getTargetShowDelay()
+    {
+        var delay = hideDelayMax;
+        do {
+            delay = Math.round(Math.random() * hideDelayMax);
+        } while (delay > hideDelayMax || delay < hideDelayMin);
+        return delay;
+    }
     function hideTarget()
     {
         point.style.display = "none";
         point.style.backgroundColor = targetBgColor;
-        point.style.width = size + "px";
-        point.style.height = size + "px";
+        point.style.width = targetSize + "px";
+        point.style.height = targetSize + "px";
+        
         if (attemptCounter >= attempts) {
             var s = getTitle();
             document.title = s;
             alert(s);
             return;
         }
-        var pTop = 0;
-        var pLeft = 0;
-        do {
-            pTop = Math.round(Math.random() * 2000);
-        } while ((pTop + size) > getClientHeight());
-        do {
-            pLeft = Math.round(Math.random() * 2000);
-        } while ((pLeft + size) > getClientWidth());
-        point.style.left = pLeft + "px";
-        point.style.top = pTop + "px";
-        var delay = hideDelayMax;
-        do {
-            delay = Math.round(Math.random() * hideDelayMax);
-        } while (delay > hideDelayMax || delay < hideDelayMin);
-        timeoutId = setTimeout(showTarget, delay);
+        
+        point.style.left = getTargetLeft() + "px";
+        point.style.top = getTargetTop() + "px";
+        timeoutId = setTimeout(showTarget, getTargetShowDelay());
+        
         document.title = getTitle();
     }
     function showTarget()
@@ -70,10 +85,10 @@ document.addEventListener("DOMContentLoaded", function () {
         document.title = getTitle();
         point.style.display = "block";
         point.style.backgroundColor = targetHighlightBgColor;
-        point.style.width = (size * 4) + "px";
-        point.style.height = (size * 4) + "px";
-        point.style.left = (parseInt(point.style.left, 10) - size) + "px";
-        point.style.top = (parseInt(point.style.top, 10) - size) + "px";
+        point.style.width = (targetSize * 4) + "px";
+        point.style.height = (targetSize * 4) + "px";
+        point.style.left = (parseInt(point.style.left, 10) - targetSize) + "px";
+        point.style.top = (parseInt(point.style.top, 10) - targetSize) + "px";
         timeoutId = setTimeout(hideTarget, catchDelay);
     }
     function init()
