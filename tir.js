@@ -1,12 +1,13 @@
 document.addEventListener("DOMContentLoaded", function () {
-    var targetSize = 12;
     var attempts = 50;
     var showDelay = 1200;
     var hideDelayMin = 500;
     var hideDelayMax = 2500;
     var catchDelay = 500;
+    var targetSize = 12;
     var targetBgColor = "#cc0000";
     var targetHighlightBgColor = "#ff0000";
+    var targetOn = false;
 
     var attemptCounter = 0;
     var catchCounter = 0;
@@ -44,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function () {
         } while ((pLeft + targetSize) > getClientWidth());
         return pLeft;
     }
-    function getTargetShowDelay()
+    function getTargetHideDelay()
     {
         var delay = hideDelayMax;
         do {
@@ -58,6 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
         point.style.backgroundColor = targetBgColor;
         point.style.width = targetSize + "px";
         point.style.height = targetSize + "px";
+        targetOn = false;
         
         if (attemptCounter >= attempts) {
             var s = getTitle();
@@ -68,15 +70,24 @@ document.addEventListener("DOMContentLoaded", function () {
         
         point.style.left = getTargetLeft() + "px";
         point.style.top = getTargetTop() + "px";
-        timeoutId = setTimeout(showTarget, getTargetShowDelay());
+        switchTarget();
         
         document.title = getTitle();
     }
     function showTarget()
     {
         attemptCounter++;
+        
         point.style.display = "block";
-        timeoutId = setTimeout(hideTarget, showDelay);
+        targetOn = true;
+        
+        switchTarget();
+    }
+    function switchTarget()
+    {
+        timeoutId = targetOn ? 
+            setTimeout(hideTarget, showDelay) : 
+            setTimeout(showTarget, getTargetHideDelay());
     }
     function catchTarget()
     {
