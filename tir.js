@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var targetSize = 12;
     var targetBgColor = "#cc0000";
     var targetHighlightBgColor = "#ff0000";
-    var targetOn = false;
+    var targetOn = true;
 
     var attemptCounter = 0;
     var catchCounter = 0;
@@ -53,8 +53,19 @@ document.addEventListener("DOMContentLoaded", function () {
         } while (delay > hideDelayMax || delay < hideDelayMin);
         return delay;
     }
-    function hideTarget()
+    function switchTarget()
     {
+        if (!targetOn) {
+            attemptCounter++;
+            
+            point.style.display = "block";
+            targetOn = true;
+            
+            timeoutId = setTimeout(switchTarget, showDelay)
+            
+            return;
+        }
+        
         point.style.display = "none";
         point.style.backgroundColor = targetBgColor;
         point.style.width = targetSize + "px";
@@ -62,6 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
         targetOn = false;
         
         if (attemptCounter >= attempts) {
+            clearTimeout(timeoutId);
             var s = getTitle();
             document.title = s;
             alert(s);
@@ -70,24 +82,9 @@ document.addEventListener("DOMContentLoaded", function () {
         
         point.style.left = getTargetLeft() + "px";
         point.style.top = getTargetTop() + "px";
-        switchTarget();
+        timeoutId = setTimeout(switchTarget, getTargetHideDelay())
         
         document.title = getTitle();
-    }
-    function showTarget()
-    {
-        attemptCounter++;
-        
-        point.style.display = "block";
-        targetOn = true;
-        
-        switchTarget();
-    }
-    function switchTarget()
-    {
-        timeoutId = targetOn ? 
-            setTimeout(hideTarget, showDelay) : 
-            setTimeout(showTarget, getTargetHideDelay());
     }
     function catchTarget()
     {
@@ -100,14 +97,14 @@ document.addEventListener("DOMContentLoaded", function () {
         point.style.height = (targetSize * 4) + "px";
         point.style.left = (parseInt(point.style.left, 10) - targetSize) + "px";
         point.style.top = (parseInt(point.style.top, 10) - targetSize) + "px";
-        timeoutId = setTimeout(hideTarget, catchDelay);
+        timeoutId = setTimeout(switchTarget, catchDelay);
     }
     function init()
     {
         alert("Lets begin");
         point = document.getElementById("point");
         point.addEventListener("click", catchTarget);
-        hideTarget();
+        switchTarget();
     }
     
     init();
