@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", function () {
             point.style.display = "block";
             targetOn = true;
             
-            timeoutId = setTimeout(switchTarget, showDelay)
+            timeoutId = setTimeout(switchTarget, showDelay);
             
             return;
         }
@@ -82,7 +82,7 @@ document.addEventListener("DOMContentLoaded", function () {
         
         point.style.left = getTargetLeft() + "px";
         point.style.top = getTargetTop() + "px";
-        timeoutId = setTimeout(switchTarget, getTargetHideDelay())
+        timeoutId = setTimeout(switchTarget, getTargetHideDelay());
         
         document.title = getTitle();
     }
