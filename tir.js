@@ -5,21 +5,22 @@ document.addEventListener("DOMContentLoaded", function () {
     var hideDelayMax = 2500;
     var catchDelay = 500;
     var targetSize = 12;
+    var targetSizeExpandMultiplier = 4;
     var targetBgColor = "#cc0000";
     var targetHighlightBgColor = "#ff0000";
+    
     var targetOn = true;
-
     var attemptCounter = 0;
     var catchCounter = 0;
-
+    
     var point;
     var timeoutId;
-
+    
     function getClientWidth()
     {
         return document.compatMode==="CSS1Compat" && !window.opera?document.documentElement.clientWidth:document.body.clientWidth;
     }
-
+    
     function getClientHeight()
     {
         return document.compatMode==="CSS1Compat" && !window.opera?document.documentElement.clientHeight:document.body.clientHeight;
@@ -93,8 +94,8 @@ document.addEventListener("DOMContentLoaded", function () {
         document.title = getTitle();
         point.style.display = "block";
         point.style.backgroundColor = targetHighlightBgColor;
-        point.style.width = (targetSize * 4) + "px";
-        point.style.height = (targetSize * 4) + "px";
+        point.style.width = (targetSize * targetSizeExpandMultiplier) + "px";
+        point.style.height = (targetSize * targetSizeExpandMultiplier) + "px";
         point.style.left = (parseInt(point.style.left, 10) - targetSize) + "px";
         point.style.top = (parseInt(point.style.top, 10) - targetSize) + "px";
         timeoutId = setTimeout(switchTarget, catchDelay);
