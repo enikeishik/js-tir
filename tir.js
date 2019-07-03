@@ -27,8 +27,10 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     function getTitle()
     {
-        var p = attemptCounter ? Math.round(catchCounter / attemptCounter * 100) : 0;
-        return "Catch: " + catchCounter + ", total: " + attemptCounter + "/" + attempts + ", " + p + "%";
+        return  "Catch: " + catchCounter + 
+                ", total: " + attemptCounter + 
+                "/" + attempts + 
+                ", " + (attemptCounter ? Math.round(catchCounter / attemptCounter * 100) : 0) + "%";
     }
     function getTargetTop()
     {
