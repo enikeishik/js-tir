@@ -18,12 +18,16 @@ document.addEventListener("DOMContentLoaded", function () {
     
     function getClientWidth()
     {
-        return document.compatMode==="CSS1Compat" && !window.opera?document.documentElement.clientWidth:document.body.clientWidth;
+        return document.compatMode === "CSS1Compat" && !window.opera
+            ? document.documentElement.clientWidth
+            : document.body.clientWidth;
     }
     
     function getClientHeight()
     {
-        return document.compatMode==="CSS1Compat" && !window.opera?document.documentElement.clientHeight:document.body.clientHeight;
+        return document.compatMode === "CSS1Compat" && !window.opera
+            ? document.documentElement.clientHeight
+            : document.body.clientHeight;
     }
     function getTitle()
     {
